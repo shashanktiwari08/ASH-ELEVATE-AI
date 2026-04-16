@@ -55,16 +55,20 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/erp-system';
 
-mongoose.connect(MONGO_URI)
-    .then(() => {
-        console.log('Connected to MongoDB');
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-            // Initialize auto payment reminder scheduler
-            const { initReminderScheduler } = require('./controllers/paymentReminderController');
-            initReminderScheduler();
-        });
-    })
-    .catch(err => {
-        console.error('Database connection error:', err);
-    });
+if (process.env.NODE_ENV !== 'production') {
+    mongoose.connect(MONGO_URI)
+        .then(() => {
+            console.log('Connected to MongoDB');
+            app.listen(PORT, () => {
+                console.log(`Server is running on port ${PORT}`);
+                const { initReminderScheduler } = require('./controllers/paymentReminderController');
+                initReminderScheduler();
+            });
+        })
+        .catch(err => console.error('Database connection error:', err));
+} else {
+    // For Vercel/Serverless: connect once
+    mongoose.connect(MONGO_URI);
+}
+
+module.exports = app;
