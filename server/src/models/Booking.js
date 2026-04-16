@@ -11,6 +11,11 @@ const bookingSchema = new mongoose.Schema({
     serviceType: { type: String },
     amount: { type: Number }
   }],
+  ingredients: [{
+    name: { type: String },
+    quantity: { type: String },
+    cost: { type: Number }
+  }],
   totalAmount: { type: Number, default: 0 },
   amountPaid: { type: Number, default: 0 },
   status: { type: String, enum: ['pending', 'confirmed', 'cancelled'], default: 'pending' },

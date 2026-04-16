@@ -15,8 +15,23 @@ const staffDutySchema = new mongoose.Schema({
     
     attendanceStatus: { 
         type: String, 
-        enum: ['present', 'absent', 'half day', 'overtime'], 
-        default: 'present' 
+        enum: ['requested', 'present', 'absent', 'half day', 'overtime'], 
+        default: 'requested' 
+    },
+    
+    venuePhotoProof: { type: String },
+    
+    adminVerified: { type: Boolean, default: false },
+    adminVerifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    adminVerifiedAt: { type: Date },
+
+    clientVerified: { type: Boolean, default: false },
+    clientVerifiedAt: { type: Date },
+
+    verificationStatus: { 
+        type: String, 
+        enum: ['pending', 'half-verified', 'verified', 'rejected'], 
+        default: 'pending' 
     },
     
     rateApplied: { type: Number, default: 0 },

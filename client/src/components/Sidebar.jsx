@@ -25,9 +25,9 @@ const Sidebar = ({ onClose }) => {
         { name: 'Clients', icon: Users, path: '/clients', roles: ['admin'] },
         { name: 'Vendors', icon: Briefcase, path: '/vendors', roles: ['admin'] },
         { name: 'Staff', icon: UserPlus, path: '/staff', roles: ['admin'] },
-        { name: 'Bookings', icon: PlusCircle, path: '/bookings', roles: ['admin', 'client', 'vendor'] },
+        { name: 'Events', icon: PlusCircle, path: '/bookings', roles: ['admin'] },
         { name: 'Payments', icon: CreditCard, path: '/payments', roles: ['admin', 'client'] },
-        { name: 'Invoices', icon: FileText, path: '/invoices', roles: ['admin', 'client', 'vendor'] },
+        { name: 'Invoices', icon: FileText, path: '/invoices', roles: ['admin'] },
         { name: 'Reports', icon: BarChart3, path: '/reports', roles: ['admin'] },
         { name: 'System Access', icon: Lock, path: '/system-access', roles: ['admin'] },
     ];
