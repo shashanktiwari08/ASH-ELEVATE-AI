@@ -16,11 +16,19 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: [
-        'http://localhost:5173', 
-        'http://localhost:5174', 
-        process.env.CLIENT_URL // Vercel UI
-    ].filter(Boolean),
+    origin: (origin, callback) => {
+        // Allow local dev and Vercel preview/production domains
+        const allowed = [
+            'http://localhost:5173',
+            'http://localhost:5174',
+            'http://localhost:5000'
+        ];
+        if (!origin || allowed.includes(origin) || origin.endsWith('.vercel.app') || origin.includes('serveousercontent.com') || origin.includes('serveo.net')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 
